@@ -1,12 +1,13 @@
 import React from 'react';
 import '../App.css';
+import { Link } from 'react-router-dom'
 
 function GenreCard() {
     return(
-        <div className="genre_card">
+        <Link to="/genreselect" className="genre_card">
             <h3>Horror</h3>
             <img src="https://via.placeholder.com/250" alt="" />
-        </div>
+        </Link>
     )
 }
 

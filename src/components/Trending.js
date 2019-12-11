@@ -8,13 +8,13 @@ function Trending() {
         <h2>Trending Movies</h2>
         <div className="movie_list">
     
-        <MovieCard />
-        <MovieCard />
-        <MovieCard />
-        <MovieCard />
-        <MovieCard />
-        <MovieCard />
-        <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
 
 
         </div>

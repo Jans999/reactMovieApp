@@ -13,6 +13,7 @@ function Genre() {
             <GenreCard />
             <GenreCard />
             <GenreCard />
+            <GenreCard />
 
         </div>
     </main>
