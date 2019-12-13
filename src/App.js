@@ -9,34 +9,37 @@ import Genre from './components/Genre'
 import SearchResult from './components/SearchResult'
 import GenreSelect from './components/GenreSelect'
 import Home from './components/Home'
+import ErrorBoundary from './components/ErrorBoundary'
+
 
 function App() {
   return (
-    <Router>
-      <Header />
+    <ErrorBoundary>
 
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/trending">
-          <Trending />
-        </Route>
-        <Route path="/genres">
-          <Genre />
-        </Route>
-        <Route path="/searchresult">
-          <SearchResult />
-        </Route>
-        <Route path="/genreselect">
-          <GenreSelect />
-        </Route>
-        <Route path="/searchresult">
-          <SearchResult />
-        </Route>
-      </Switch>
+      <Router>
+        <Header />
+      
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route path="/trending">
+              <Trending />
+            </Route>
+            <Route path="/genres">
+              <Genre />
+            </Route>
+            <Route path="/searchresult">
+              <SearchResult />
+            </Route>
+            <Route path="/genreselect">
+              <GenreSelect />
+            </Route>
+          </Switch>
 
-    </Router>
+      </Router>
+    </ErrorBoundary>
+
   );
 }
 
