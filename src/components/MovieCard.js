@@ -11,9 +11,7 @@ function MovieCard() {
                 </Link>
                 <p>Directed by: NAME OF THE PERSON</p>
                 <p>Released: Year of release</p>
-                <p>The Guardians struggle to keep together as a team 
-                while dealing with their personal family issues, notably Star-Lord's encounter with his 
-                father the ambitious celestial being Ego.</p>
+
             </div>
 
     )
