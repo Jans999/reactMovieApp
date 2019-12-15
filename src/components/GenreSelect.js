@@ -9,6 +9,8 @@ function GenreCard({genreSelected, genreSelectedList, handleTrendingSearch}) {
 
         <div className="movie_list">
             <h2 className="genre_title">{genreSelected.genreName}</h2>
+
+            {/* Maps over the genreSelectedList which is populated on click before this component and displays the moviecards */}
   
               { genreSelectedList.map( data => (
                 <MovieCard 

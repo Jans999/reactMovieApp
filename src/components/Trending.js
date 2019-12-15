@@ -11,12 +11,12 @@ function Trending({trendingData, handleTrendingSearch}) {
 
         { trendingData.map( data => (
           <MovieCard 
-          handleTrendingSearch = {handleTrendingSearch}
-          key= {data.id}
-          id={data.id}
-          imgURL= {data.poster_path} 
-          title= {data.title} 
-          releaseDate = {data.release_date}
+            handleTrendingSearch = {handleTrendingSearch}
+            key= {data.id}
+            id={data.id}
+            imgURL= {data.poster_path} 
+            title= {data.title} 
+            releaseDate = {data.release_date}
            />
         )) }
 

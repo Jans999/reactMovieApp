@@ -69,6 +69,14 @@ class App extends Component {
     })
   }
 
+    // Updates the trendingSearch state item and then this data is passed to searchResult
+    handleGenreSearch = (id) => {
+      var searchItem = this.state.genreSelectedList.find(element => element.id === id);
+      this.setState({
+        trendingSearch: searchItem,
+      })
+    }
+
 
   render() {
     return (
@@ -87,7 +95,7 @@ class App extends Component {
 
             <Route path="/searchresult" render ={ () => <SearchResult trendingSearch={this.state.trendingSearch}/> } />
 
-            <Route path="/genreselect" render = { () => <GenreSelect genreSelected={this.state.genreSelected} genreSelectedList={this.state.genreSelectedList} handleTrendingSearch={this.handleTrendingSearch} /> } />
+            <Route path="/genreselect" render = { () => <GenreSelect genreSelected={this.state.genreSelected} genreSelectedList={this.state.genreSelectedList} handleTrendingSearch={this.handleGenreSearch} /> } />
 
           </Switch>
 
