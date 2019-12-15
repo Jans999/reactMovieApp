@@ -4,7 +4,7 @@ import '../App.css';
 function SearchResult({trendingSearch}) {
     return(
         <main>
-            <div>
+            <div className="search_result">
                 <h3>{trendingSearch.title}</h3>
                 <img src={`http://image.tmdb.org/t/p/w185/${trendingSearch.poster_path}`} alt="" />
                 <p>Directed by: NAME OF THE PERSON</p>

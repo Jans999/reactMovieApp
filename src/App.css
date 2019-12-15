@@ -99,3 +99,12 @@ Genre
   text-align: center;
   width: 100%;
 }
+
+/* --------------
+Search result
+------------------*/
+
+.search_result {
+  margin: 0 auto;
+  width: 90%;
+}

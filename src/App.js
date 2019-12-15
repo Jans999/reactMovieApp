@@ -18,35 +18,59 @@ class App extends Component {
   state = {
     trending: [],
     trendingSearch: {},
+    genresList: [],
+    genreSelected: {},
+    genreSelectedList: []
   }
 
-  // Gets the data for trending and sets it in state
   componentDidMount() {
-    axios.get('https://api.themoviedb.org/3/discover/movie?api_key=431597031460c6825db9b7aef28617e8&language=en-US&sort_by=popularity.desc&page=1')
+    axios.get('https://api.themoviedb.org/3/movie/popular?api_key=431597031460c6825db9b7aef28617e8&language=en-US&page=1')
       .then(response => {
         // handle success
+        // Gets the data for trending and sets it in state
         this.setState({trending: response.data.results});
-        // console.log(this.state)
-      })
-      .catch(function (error) {
+        // Gets the data for GenreList
+        return axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=431597031460c6825db9b7aef28617e8&language=en-US')
+      }).then( response => {
+        // sets the genreList data
+        this.setState({genresList: response.data.genres})
+      }).catch(function (error) {
         // handle error
-        console.log("Something went wrong in the fetch/parsing action " + error);
+        console.log("Something went wrong in the fetch/parsing action" + error);
       })
+  }
+
+  // Async request and gets the film list of the genre selected
+  getGenreSelectedList = async (genreSelected) => {
+    axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=431597031460c6825db9b7aef28617e8&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${genreSelected}`)
+    .then( response => {
+      this.setState({genreSelectedList: response.data.results})
+    } )
+  }
+
+  // Works with the genre request
+  handleGenreSelect = (genreid, genreName) => {
+    this.setState({
+      genreSelected: {genreid, genreName}
+    })
+  }
+
+  // Combined method to populate genre movie list that is called in genre
+  handleGenreClick = (genreid, genreName) => {
+    this.handleGenreSelect(genreid, genreName);
+    this.getGenreSelectedList(genreid)
   }
 
   // Updates the trendingSearch state item and then this data is passed to searchResult
   handleTrendingSearch = (id) => {
     var searchItem = this.state.trending.find(element => element.id === id);
-    console.log(searchItem);
     this.setState({
       trendingSearch: searchItem,
     })
   }
 
 
-
   render() {
-    console.log(this.state)
     return (
     <ErrorBoundary>
 
@@ -59,11 +83,11 @@ class App extends Component {
 
             <Route path="/trending" render = { () => <Trending trendingData={this.state.trending} handleTrendingSearch={this.handleTrendingSearch} />}/>
 
-            <Route path="/genres" render ={ () => <Genre /> } />
+            <Route path="/genres" render ={ () => <Genre genres={this.state.genresList} handleGenreSelect={this.handleGenreSelect} handleGenreClick={this.handleGenreClick} /> } />
 
             <Route path="/searchresult" render ={ () => <SearchResult trendingSearch={this.state.trendingSearch}/> } />
 
-            <Route path="/genreselect" render = { () => <GenreSelect /> } />
+            <Route path="/genreselect" render = { () => <GenreSelect genreSelected={this.state.genreSelected} genreSelectedList={this.state.genreSelectedList} handleTrendingSearch={this.handleTrendingSearch} /> } />
 
           </Switch>
 

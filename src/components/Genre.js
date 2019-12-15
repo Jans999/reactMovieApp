@@ -2,18 +2,15 @@ import React from 'react';
 import '../App.css';
 import GenreCard from './GenreCard';
 
-function Genre() {
+function Genre({genres, handleGenreSelect, handleGenreClick}) {
     return(
     <main>
         <h2>Genres</h2>
         <div className="genre_container">
 
-            <GenreCard />
-            <GenreCard />
-            <GenreCard />
-            <GenreCard />
-            <GenreCard />
-            <GenreCard />
+           {genres.map( genre => (
+            <GenreCard key={genre.id} genreTitle={genre.name} genreID={genre.id} handleGenreSelect={handleGenreSelect} handleGenreClick={handleGenreClick}/>
+           ))}
 
         </div>
     </main>

@@ -4,19 +4,22 @@ import '../App.css';
 // Components
 import MovieCard from './MovieCard'
 
-function GenreCard() {
+function GenreCard({genreSelected, genreSelectedList, handleTrendingSearch}) {
     return(
 
         <div className="movie_list">
-            <h2 className="genre_title">Horror</h2>
-    
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
+            <h2 className="genre_title">{genreSelected.genreName}</h2>
+  
+              { genreSelectedList.map( data => (
+                <MovieCard 
+                    handleTrendingSearch ={handleTrendingSearch}
+                    key= {data.id}
+                    id={data.id}
+                    imgURL= {data.poster_path} 
+                    title= {data.title} 
+                    releaseDate = {data.release_date}
+           />
+        )) }
 
         </div>
     )
