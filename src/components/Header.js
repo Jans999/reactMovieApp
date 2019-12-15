@@ -21,7 +21,8 @@ function Header() {
                     </li>
                     <li>
                         <form>
-                            <label for="">Search </label><input type="text" />
+                            <input placeholder="Search" type="text" className="search_bar" />
+                            <input type="image" src="./assets/search_icon.png" alt="search" />
                         </form>
                     </li>
                 </ul>

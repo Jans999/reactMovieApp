@@ -1,17 +1,15 @@
 import React from 'react';
 import '../App.css';
 
-function SearchResult() {
+function SearchResult({trendingSearch}) {
     return(
         <main>
             <div>
-            <h3>Title</h3>
-            <img src="https://via.placeholder.com/250" alt="" />
-            <p>Directed by: NAME OF THE PERSON</p>
-            <p>Released: Year of release</p>
-            <p>The Guardians struggle to keep together as a team 
-                while dealing with their personal family issues, notably Star-Lord's encounter with his 
-                father the ambitious celestial being Ego.</p>
+                <h3>{trendingSearch.title}</h3>
+                <img src={`http://image.tmdb.org/t/p/w185/${trendingSearch.poster_path}`} alt="" />
+                <p>Directed by: NAME OF THE PERSON</p>
+                <p>Released: {trendingSearch.release_date}</p>
+                <p>{trendingSearch.overview}</p>
             </div>
         </main>
     )

@@ -2,15 +2,15 @@ import React from 'react';
 import '../App.css';
 import { Link } from 'react-router-dom'
 
-function MovieCard() {
+function MovieCard({imgURL, title, releaseDate, handleTrendingSearch, id}) {
     return(
             <div className="movie_card">
-                <h3>Title</h3>
+                <h3>{title}</h3>
                 <Link to="/searchResult"> 
-                    <img src="https://via.placeholder.com/250" alt="" />
+                    <img src={`http://image.tmdb.org/t/p/w185/${imgURL}`} onClick={() => handleTrendingSearch(id)}  alt="" />
                 </Link>
                 <p>Directed by: NAME OF THE PERSON</p>
-                <p>Released: Year of release</p>
+                <p>Released: {releaseDate}</p>
 
             </div>
 
