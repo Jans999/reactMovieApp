@@ -17,7 +17,10 @@ class App extends Component {
 
   state = {
     trending: [],
-    trendingSearch: {},
+    searchItem: {},
+    searchInputField: "",
+    searchArray: [],
+    searchRequestResult: {},
     genresList: [],
     genreSelected: {},
     genreSelectedList: []
@@ -40,7 +43,7 @@ class App extends Component {
       })
   }
 
-  // Async request and gets the film list of the genre selected
+  // Async request and gets the film list of the selected genre
   getGenreSelectedList = async (genreSelected) => {
     axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=431597031460c6825db9b7aef28617e8&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${genreSelected}`)
     .then( response => {
@@ -48,7 +51,7 @@ class App extends Component {
     } )
   }
 
-  // Works with the genre request
+  // Works with the genre request (separate function to couple with the async request)
   handleGenreSelect = (genreid, genreName) => {
     this.setState({
       genreSelected: {genreid, genreName}
@@ -61,19 +64,48 @@ class App extends Component {
     this.getGenreSelectedList(genreid)
   }
 
-  // Updates the trendingSearch state item and then this data is passed to searchResult
+  // Updates the search result state item and then this data is passed to searchResult
   handleTrendingSearch = (id) => {
     var searchItem = this.state.trending.find(element => element.id === id);
     this.setState({
-      trendingSearch: searchItem,
+      searchResult: searchItem,
     })
   }
 
-    // Updates the trendingSearch state item and then this data is passed to searchResult
+    // Updates the search result state item and then this data is passed to searchResult component
     handleGenreSearch = (id) => {
       var searchItem = this.state.genreSelectedList.find(element => element.id === id);
       this.setState({
-        trendingSearch: searchItem,
+        searchResult: searchItem,
+      })
+    }
+
+    // Search result functions
+
+    // Controlled component for the search field
+
+    handleSearchFieldInput = (e) => {
+      this.setState({
+          searchInputField: e.target.value,
+      })
+  }
+
+  // Beginning of the search fetch and retrieve if the query exists...
+
+    handleSearchFieldSubmit = async(e) => {
+      e.preventDefault();
+      axios.get(`https://api.themoviedb.org/3/search/company?api_key=431597031460c6825db9b7aef28617e8&query=${this.state.searchInputField}&page=1`)
+      .then(response => {
+        // handle success
+        // Gets the data from the search request and puts it into the array in state
+        this.setState({searchArray: response.data.results});
+        console.log(this.state.searchArray)
+      }).then(
+        console.log("this is the find " + this.state.searchArray.find( (element) => element.name === this.state.searchInputField ))
+      )
+      .catch(function (error) {
+        // handle error
+        console.log("Something went wrong in the search action" + error);
       })
     }
 
@@ -83,7 +115,7 @@ class App extends Component {
     <ErrorBoundary>
 
       <Router>
-        <Header />
+        <Header handleSearchFieldSubmit={this.handleSearchFieldSubmit} handleSearchFieldInput={this.handleSearchFieldInput} searchFieldState={this.state.searchInputField} />
       
           <Switch>
             
@@ -93,7 +125,7 @@ class App extends Component {
 
             <Route path="/genres" render ={ () => <Genre genres={this.state.genresList} handleGenreSelect={this.handleGenreSelect} handleGenreClick={this.handleGenreClick} /> } />
 
-            <Route path="/searchresult" render ={ () => <SearchResult trendingSearch={this.state.trendingSearch}/> } />
+            <Route path="/searchresult" render ={ () => <SearchResult searchResult={this.state.searchResult}/> } />
 
             <Route path="/genreselect" render = { () => <GenreSelect genreSelected={this.state.genreSelected} genreSelectedList={this.state.genreSelectedList} handleTrendingSearch={this.handleGenreSearch} /> } />
 

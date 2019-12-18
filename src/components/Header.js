@@ -2,10 +2,11 @@ import React from 'react';
 import '../App.css';
 import { Link } from "react-router-dom";
 
-function Header() {
-    return(
+function Header({handleSearchFieldInput, searchFieldState, handleSearchFieldSubmit}) {
+
+        return(
             <header>
-                <nav className="main_nav">
+            <nav className="main_nav">
                 <h1>
                     <Link to="/"> Movie app </Link>
                 </h1>
@@ -20,15 +21,16 @@ function Header() {
                         <Link to="/genres">Genre </Link>
                     </li>
                     <li>
-                        <form>
-                            <input placeholder="Search" type="text" className="search_bar" />
+                        <form onSubmit={handleSearchFieldSubmit} >
+                            <input placeholder="Search" type="text" className="search_bar" onChange={handleSearchFieldInput} value={searchFieldState} />
                             <input type="image" src="./assets/search_icon.png" alt="search" />
+                            <input type="submit" className="submit_button" />
                         </form>
                     </li>
                 </ul>
-                </nav>
-            </header>
-    )
-}
+            </nav>
+        </header>
+        )
+    }
 
 export default Header;

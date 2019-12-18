@@ -46,6 +46,13 @@ h1 a {
   /* content: url("/assets/search_icon.png"); */
 }
 
+.submit_button {
+  height: 1px;
+  left: -9999px; 
+  position: absolute; 
+  width: 1px; 
+}
+
 /* --------------
 Home 
 ------------------*/
