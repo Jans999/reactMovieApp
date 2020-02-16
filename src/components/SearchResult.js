@@ -2,6 +2,8 @@ import React from 'react';
 import '../App.css';
 
 function SearchResult({searchResult}) {
+
+
     return(
         <main>
             <div className="search_result">

@@ -99,10 +99,14 @@ class App extends Component {
         // handle success
         // Gets the data from the search request and puts it into the array in state
         this.setState({searchArray: response.data.results});
-        console.log(this.state.searchArray)
-      }).then(
-        console.log("this is the find " + this.state.searchArray.find( (element) => element.name === this.state.searchInputField ))
-      )
+        // If the result is found then it sets that result to the searchResult state
+        if (this.state.searchArray.find( movie =>  movie.name.toLowerCase() === this.state.searchInputField.toLowerCase()  )) {
+          let movie = this.state.searchArray.find( movie =>  movie.name.toLowerCase() === this.state.searchInputField.toLowerCase()  );
+          this.setState({
+            searchResult: movie
+          })
+        }
+      })
       .catch(function (error) {
         // handle error
         console.log("Something went wrong in the search action" + error);
@@ -121,11 +125,11 @@ class App extends Component {
             
             <Route exact path="/" render = { () => <Home /> } />
 
-            <Route path="/trending" render = { () => <Trending trendingData={this.state.trending} handleTrendingSearch={this.handleTrendingSearch} />}/>
+            <Route exact path="/trending" render = { () => <Trending trendingData={this.state.trending} handleTrendingSearch={this.handleTrendingSearch} />}/>
 
             <Route path="/genres" render ={ () => <Genre genres={this.state.genresList} handleGenreSelect={this.handleGenreSelect} handleGenreClick={this.handleGenreClick} /> } />
 
-            <Route path="/searchresult" render ={ () => <SearchResult searchResult={this.state.searchResult}/> } />
+            <Route path="/searchResult" render ={ () => <SearchResult searchResult={this.state.searchResult}/> } />
 
             <Route path="/genreselect" render = { () => <GenreSelect genreSelected={this.state.genreSelected} genreSelectedList={this.state.genreSelectedList} handleTrendingSearch={this.handleGenreSearch} /> } />
 
